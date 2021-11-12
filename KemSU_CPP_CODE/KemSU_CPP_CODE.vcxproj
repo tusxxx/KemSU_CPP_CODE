@@ -139,7 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="KemSU_CPP_CODE.cpp" />
+    <ClCompile Include="Calendar.cpp" />
+    <ClCompile Include="CharRepeating.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
