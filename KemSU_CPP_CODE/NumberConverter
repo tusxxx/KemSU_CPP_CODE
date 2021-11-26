@@ -1,0 +1,71 @@
+/**********************************************
+* Автор: Мустафаев И.Б.                       *
+* Дата: 26.11.2021                            *
+* Название: Перевод арабских и римских чисел  *
+**********************************************/
+
+// https://onlinegdb.com/pt7gBZVP8
+
+#include <cstring>
+#include <string>
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+char* to_roman(unsigned int number, char* buff) {
+    int numbers = 13;
+    unsigned int a_num[numbers] = {1,4,5,9,10,40,50,90,100,400,500,900,1000};
+    char *r_str[numbers] = {"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+    *buff = '\0';
+    
+    for (numbers; numbers != 0; --numbers) {
+        while (number >= a_num[numbers]) {
+            number -= a_num[numbers];
+            strcat(buff, r_str[numbers]);
+            }
+    }
+    
+    return buff;
+}
+
+int romanToInt(string romanNumber) {
+    map<char, int> roman;
+    roman['M'] = 1000;
+    roman['D'] = 500;
+    roman['C'] = 100;
+    roman['L'] = 50;
+    roman['X'] = 10;
+    roman['V'] = 5;
+    roman['I'] = 1;
+
+    int arabicNumber = 0;
+    
+    for (int strIndex = 0; strIndex < romanNumber.size() - 1; ++strIndex)
+    {
+        if (roman[romanNumber[strIndex]] < roman[romanNumber[strIndex+1]]) {
+            arabicNumber -= roman[romanNumber[strIndex]];
+        } else {
+            arabicNumber += roman[romanNumber[strIndex]];
+        }
+    }
+    
+    arabicNumber += roman[romanNumber[romanNumber.size()-1]];
+    return arabicNumber;
+}
+
+
+int main(void) {
+    char* roman;
+    unsigned int arabian = 99;       // .тут вводим число
+    string romanNumber = "XCIX";   // .тут число римское
+    
+    roman = (char*)malloc(256); 
+    free(roman);
+
+    cout << arabian << " : " << to_roman(arabian, roman) << endl;
+    cout << romanNumber << " : " << romanToInt(romanNumber);
+    return 0;
+}
+
+
