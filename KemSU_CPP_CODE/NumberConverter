@@ -4,7 +4,7 @@
 * Название: Перевод арабских и римских чисел  *
 **********************************************/
 
-// https://onlinegdb.com/pt7gBZVP8
+// https://onlinegdb.com/kgolVTlI1
 
 #include <cstring>
 #include <string>
@@ -13,19 +13,18 @@
 
 using namespace std;
 
-char* to_roman(unsigned int number, char* buff) {
+char* intToRoman(unsigned int number, char* buff) {
     int numbers = 13;
-    unsigned int a_num[numbers] = {1,4,5,9,10,40,50,90,100,400,500,900,1000};
-    char *r_str[numbers] = {"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+    unsigned int arrayOfInts[numbers] = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
+    char* arrayOfSymbols[numbers] = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
     *buff = '\0';
     
-    for (numbers; numbers != 0; --numbers) {
-        while (number >= a_num[numbers]) {
-            number -= a_num[numbers];
-            strcat(buff, r_str[numbers]);
-            }
+    while (numbers--) // .от этой "поезии" я не смог избавиться, но вроде как понял, что оно делает
+    while (number >= arrayOfInts[numbers]) {
+        number -= arrayOfInts[numbers];
+        strcat(buff, arrayOfSymbols[numbers]);
     }
-    
+
     return buff;
 }
 
@@ -41,31 +40,30 @@ int romanToInt(string romanNumber) {
 
     int arabicNumber = 0;
     
-    for (int strIndex = 0; strIndex < romanNumber.size() - 1; ++strIndex)
-    {
+    for (int strIndex = 0; strIndex < romanNumber.size() - 1; ++strIndex) {
         if (roman[romanNumber[strIndex]] < roman[romanNumber[strIndex+1]]) {
             arabicNumber -= roman[romanNumber[strIndex]];
         } else {
             arabicNumber += roman[romanNumber[strIndex]];
         }
     }
-    
     arabicNumber += roman[romanNumber[romanNumber.size()-1]];
+    
     return arabicNumber;
 }
 
 
 int main(void) {
     char* roman;
-    unsigned int arabian = 99;       // .тут вводим число
-    string romanNumber = "XCIX";   // .тут число римское
+    unsigned int arabian;     
+    string romanNumber;
     
     roman = (char*)malloc(256); 
     free(roman);
-
-    cout << arabian << " : " << to_roman(arabian, roman) << endl;
+    cin >> arabian >> romanNumber; // .меня никто не просит делать юзер френдли прогу
+    
+    cout << arabian << " : " << intToRoman(arabian, roman) << endl;
     cout << romanNumber << " : " << romanToInt(romanNumber);
+    
     return 0;
 }
-
-
